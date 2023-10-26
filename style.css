@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    border: none;
+    padding: 0;
+    font-family: Inter, sans-serif;
+}
+
+button, a {
+    cursor: pointer;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    opacity: .55;
+}
+
+a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+button {
+    background-color: transparent;
+}
+
+button span {
+    opacity: .55;
+    width: 0;
+    transform: translate(-2rem, -50%);
+    position: absolute;
+}
+
+button span:hover {
+    opacity: 1;
+}
+
+#data {
+    padding: 50px;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    width: fit-content;
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.line:hover {
+    border-color: rgba(0, 0, 0, .55);
+}
+
+.object>.line {
+    transform: translateX(-50px);
+}
+
+.object {
+    padding-left: 50px;
+}
+
+.closed * {
+    display: none;
+}
+
+.closed>.line {
+    display: flex;
+}
+
+.closed>.line * {
+    display: flex;
+}
+
+.opened>.line button span {
+    transform: translate(-1.5rem, -100%) rotateZ(90deg);
+}
+
+.property a::after {
+    content: ":";
+}
+
+.property button {
+    margin-left: 5px;
+    border: 1px solid transparent;
+}
+
+.property button:hover {
+    border-color: rgba(0, 0, 0, .55);
+}
