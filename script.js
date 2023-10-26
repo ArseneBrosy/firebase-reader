@@ -8,20 +8,30 @@ document.querySelector("#database-url").addEventListener("change", (e) => {
     let database = getDatabase(initializeApp({databaseURL: document.querySelector("#database-url").value}));
     onValue(ref(database), (snapshot) => {
       const JSONValue = JSON.stringify(snapshot.val());
-      console.log(JSONValue);
 
       // construct the HTML
       let HTMLElements = "";
       let currentPropOrValue = "";
       let i = 0;
       let objectId = 0;
+
+      // find opened objects
+      let openedObjectsId = [];
+      let searchId = 0;
+      while (document.querySelector(`#object-${searchId}`) !== null) {
+        if (document.querySelector(`#object-${searchId}`).classList.contains("opened")) {
+          openedObjectsId.push(searchId);
+        }
+        searchId ++;
+      }
+
       for (let char of JSONValue) {
         if (["\"", "{", "}", ":", ","].includes(char)) {
           // is structure char
           if (currentPropOrValue !== "") {
             if (JSONValue[i + 2] === "{") {
               // is an object
-              HTMLElements += `<div class="object closed" id="object-${objectId}"><div class="line"><button onclick="openCloseObject('object-${objectId}')"><span class="material-symbols-outlined">arrow_right</span></button><a href="">${currentPropOrValue}</a></div>`;
+              HTMLElements += `<div class="object ${openedObjectsId.includes(objectId) ? "opened" : "closed"}" id="object-${objectId}"><div class="line"><button onclick="openCloseObject('object-${objectId}')"><span class="material-symbols-outlined">arrow_right</span></button><a href="">${currentPropOrValue}</a></div>`;
               objectId++;
             }
             else if (JSONValue[i + 1] === ":") {

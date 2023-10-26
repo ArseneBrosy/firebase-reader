@@ -52,6 +52,7 @@ button span:hover {
 
 #data {
     overflow: auto;
+    height: calc(100% - 22px - 1rem);
 }
 
 #data *:not(span) {
