@@ -7,10 +7,10 @@ let database = getDatabase(initializeApp({databaseURL: dbURL}));
 
 onValue(ref(database), (snapshot) => {
   const JSONValue = JSON.stringify(snapshot.val());
-  let HTMLElements = "";
   console.log(JSONValue);
 
   // construct the HTML
+  let HTMLElements = "";
   let currentPropOrValue = "";
   let i = 0;
   let objectId = 0;
@@ -18,15 +18,23 @@ onValue(ref(database), (snapshot) => {
     if (["\"", "{", "}", ":", ","].includes(char)) {
       // is structure char
       if (currentPropOrValue !== "") {
-        let mode = "prop";
         if (JSONValue[i + 2] === "{") {
           // is an object
-          mode = "object";
-          HTMLElements += `<div class="object opened" id="object-${objectId}"><div class="line"><button onclick="openCloseObject('object-${objectId}')"><span class="material-symbols-outlined">arrow_right</span></button><a href="">${currentPropOrValue}</a></div>`;
+          HTMLElements += `<div class="object closed" id="object-${objectId}"><div class="line"><button onclick="openCloseObject('object-${objectId}')"><span class="material-symbols-outlined">arrow_right</span></button><a href="">${currentPropOrValue}</a></div>`;
           objectId++;
         }
-        console.log(`${mode}: ${currentPropOrValue}`);
+        else if (JSONValue[i + 1] === ":") {
+          // is a property
+          HTMLElements += `<div class="property"><div class="line"><a href="">${currentPropOrValue}</a>`;
+        } else {
+          // is a value
+          HTMLElements += `<button>${currentPropOrValue}</button></div></div>`;
+        }
         currentPropOrValue = "";
+      }
+
+      if (char === "}" && i < JSONValue.length - 1) {
+        HTMLElements += "</div>";
       }
     } else {
       // is a prop or value char
@@ -34,4 +42,6 @@ onValue(ref(database), (snapshot) => {
     }
     i++;
   }
+
+  document.querySelector("#data").innerHTML = HTMLElements;
 });
