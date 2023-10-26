@@ -8,3 +8,8 @@ function openCloseObject(id) {
     object.classList.add("opened");
   }
 }
+
+function startEdit(path, prop, startValue) {
+  pathToEdit = path;
+  propToEdit = prop;
+}
