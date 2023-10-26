@@ -6,6 +6,15 @@
     font-family: Inter, sans-serif;
 }
 
+body {
+    padding: 20px 50px;
+    height: 100vh;
+}
+
+h1 {
+    margin-bottom: 30px;
+}
+
 button, a {
     cursor: pointer;
 }
@@ -36,15 +45,29 @@ button span:hover {
     opacity: 1;
 }
 
+#database {
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, .4);
+    height: calc(100% - 30px - 2em);
+}
+
 #data {
-    padding: 50px;
+    overflow: auto;
+}
+
+#data *:not(span) {
+    width: fit-content;
+}
+
+#database-url {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, .55);
+    width: 100%;
 }
 
 .line {
     display: flex;
     align-items: center;
     margin-top: 10px;
-    width: fit-content;
     border: 1px solid transparent;
     padding: 5px;
     border-radius: 5px;
@@ -55,7 +78,7 @@ button span:hover {
 }
 
 .object>.line {
-    transform: translateX(-50px);
+    transform: translateX(calc(-50px + 3rem));
 }
 
 .object {
@@ -76,6 +99,10 @@ button span:hover {
 
 .opened>.line button span {
     transform: translate(-1.5rem, -100%) rotateZ(90deg);
+}
+
+.property {
+    transform: translateX(3rem);
 }
 
 .property a::after {
