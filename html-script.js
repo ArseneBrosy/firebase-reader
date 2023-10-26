@@ -9,7 +9,13 @@ function openCloseObject(id) {
   }
 }
 
-function startEdit(path, prop, startValue) {
+let pathToEdit = "";
+let propToEdit = "";
+function startEdit(path, prop, startValue, buttonId) {
   pathToEdit = path;
   propToEdit = prop;
+
+  document.querySelector(`#${buttonId}`).style.display = "none";
+  document.querySelector(`#${buttonId}-input`).value = startValue;
+  document.querySelector(`#${buttonId}-input`).style.display = "block";
 }

@@ -1,9 +1,6 @@
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
 import {getDatabase, onValue, ref} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
 
-let pathToEdit = "";
-let propToEdit = "";
-
 document.querySelector("#database-url").addEventListener("change", (e) => {
   try {
     let database = getDatabase(initializeApp({databaseURL: document.querySelector("#database-url").value}));
@@ -15,6 +12,7 @@ document.querySelector("#database-url").addEventListener("change", (e) => {
       let currentPropOrValue = "";
       let i = 0;
       let objectId = 0;
+      let valueId = 0;
       let insideObject = [];
       let prop = "";
 
@@ -48,7 +46,9 @@ document.querySelector("#database-url").addEventListener("change", (e) => {
               for (let step of insideObject) {
                 pathToProp += (pathToProp === "" ? "" : "/") + step;
               }
-              HTMLElements += `<button onclick="startEdit('${pathToProp}', '${prop}', '${currentPropOrValue}')">${currentPropOrValue}</button></div></div>`;
+              HTMLElements += `<button id="value-${valueId}" onclick="startEdit('${pathToProp}', '${prop}', '${currentPropOrValue}', 'value-${valueId}')">${currentPropOrValue}</button>`;
+              HTMLElements += `<input type="text" id="value-${valueId}-input" style="display: none"></div></div>`;
+              valueId++;
             }
             currentPropOrValue = "";
           }
