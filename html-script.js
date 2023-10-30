@@ -9,13 +9,14 @@ function openCloseObject(id) {
   }
 }
 
-let pathToEdit = "";
-let propToEdit = "";
-function startEdit(path, prop, startValue, buttonId) {
-  pathToEdit = path;
-  propToEdit = prop;
-
+function startEdit(startValue, buttonId) {
   document.querySelector(`#${buttonId}`).style.display = "none";
   document.querySelector(`#${buttonId}-input`).value = startValue;
   document.querySelector(`#${buttonId}-input`).style.display = "block";
+}
+
+function endEdit(endValue, buttonId) {
+  document.querySelector(`#${buttonId}`).value = endValue;
+  document.querySelector(`#${buttonId}-input`).style.display = "none";
+  document.querySelector(`#${buttonId}`).style.display = "block";
 }
