@@ -52,7 +52,7 @@ button.delete span, button.add span {
     transform: translate(50%, -50%);
 }
 
-.object button.delete span {
+.object > .line button.delete span {
     transform: translate(150%, -50%);
 }
 
