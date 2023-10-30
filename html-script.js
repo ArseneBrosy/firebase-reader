@@ -20,3 +20,7 @@ function endEdit(endValue, buttonId) {
   document.querySelector(`#${buttonId}-input`).style.display = "none";
   document.querySelector(`#${buttonId}`).style.display = "block";
 }
+
+function add(path, object) {
+  document.dispatchEvent(new CustomEvent("add", {detail: {path: path, object: object}}));
+}

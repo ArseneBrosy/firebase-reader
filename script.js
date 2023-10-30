@@ -115,3 +115,7 @@ document.addEventListener('delete-prop', (e) => {
 document.addEventListener('delete-object', (e) => {
   set(ref(database, e.detail.path), {});
 });
+
+document.addEventListener('add', (e) => {
+  update(ref(database, e.detail.path), e.detail.object);
+});
