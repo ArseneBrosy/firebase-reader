@@ -48,6 +48,9 @@ function fillData(JSONData) {
           for (let step of insideObject) {
             pathToProp += (pathToProp === "" ? "" : "/") + step;
           }
+          if (pathToProp === "") {
+            pathToProp = "/";
+          }
           HTMLElements += `<div class="object ${openedObjectsId.includes(objectId) ? "opened" : "closed"}" id="object-${objectId}"><div class="line"><button onclick="openCloseObject('object-${objectId}')"><span class="material-symbols-outlined">arrow_right</span></button><a href="#">${currentPropOrValue}</a>`;
           HTMLElements += `<span class="line-hoverer"></span>`;
           HTMLElements += `<button class="add"><span class="material-symbols-outlined">add</span></button>`;
@@ -63,6 +66,9 @@ function fillData(JSONData) {
           let pathToProp = "";
           for (let step of insideObject) {
             pathToProp += (pathToProp === "" ? "" : "/") + step;
+          }
+          if (pathToProp === "") {
+            pathToProp = "/";
           }
           HTMLElements += `<button id="value-${valueId}" onclick="startEdit('${currentPropOrValue}', 'value-${valueId}')">${currentPropOrValue}</button>`;
           HTMLElements += `<input type="text" id="value-${valueId}-input" style="display: none">`;
