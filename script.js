@@ -43,13 +43,13 @@ function fillData(JSONData) {
       if (currentPropOrValue !== "") {
         if (JSONData[i + 2] === "{") {
           // is an object
-          HTMLElements += `<div class="object ${openedObjectsId.includes(objectId) ? "opened" : "closed"}" id="object-${objectId}"><div class="line"><button onclick="openCloseObject('object-${objectId}')"><span class="material-symbols-outlined">arrow_right</span></button><a href="">${currentPropOrValue}</a></div>`;
+          HTMLElements += `<div class="object ${openedObjectsId.includes(objectId) ? "opened" : "closed"}" id="object-${objectId}"><div class="line"><button onclick="openCloseObject('object-${objectId}')"><span class="material-symbols-outlined">arrow_right</span></button><a href="#">${currentPropOrValue}</a></div>`;
           insideObject.push(currentPropOrValue);
           objectId++;
         }
         else if (JSONData[i + 1] === ":") {
           // is a property
-          HTMLElements += `<div class="property"><div class="line"><a href="">${currentPropOrValue}</a>`;
+          HTMLElements += `<div class="property"><div class="line"><a href="#">${currentPropOrValue}</a>`;
           prop = currentPropOrValue;
         } else {
           // is a value
@@ -58,7 +58,9 @@ function fillData(JSONData) {
             pathToProp += (pathToProp === "" ? "" : "/") + step;
           }
           HTMLElements += `<button id="value-${valueId}" onclick="startEdit('${currentPropOrValue}', 'value-${valueId}')">${currentPropOrValue}</button>`;
-          HTMLElements += `<input type="text" id="value-${valueId}-input" style="display: none"></div></div>`;
+          HTMLElements += `<input type="text" id="value-${valueId}-input" style="display: none">`;
+          HTMLElements += `<span class="line-hoverer"></span>`;
+          HTMLElements += `<button onclick="document.dispatchEvent(new CustomEvent('delete-prop', {detail: {path: '${pathToProp}', prop: '${prop}'}}))" class="delete"><span class="material-symbols-outlined">delete</span></button></div></div>`;
           pathToProps.push(pathToProp);
           props.push(prop);
           valueId++;
@@ -90,3 +92,9 @@ function fillData(JSONData) {
     });
   }
 }
+
+document.addEventListener('delete-prop', (e) => {
+  update(ref(database, e.detail.path), {
+    [e.detail.prop]: null
+  });
+});
