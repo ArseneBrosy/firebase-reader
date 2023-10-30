@@ -29,30 +29,34 @@ button {
     background-color: transparent;
 }
 
-button:not(.delete) span {
+button:not(.delete):not(.add) span {
     opacity: .55;
     width: 0;
     transform: translate(-2rem, -50%);
     position: absolute;
 }
 
-button.delete {
+button.delete, button.add {
     border: none !important;
     opacity: 0.55;
     display: none;
 }
 
-button.delete:hover {
+button.delete:hover, button.add:hover {
     opacity: 1;
 }
 
-button.delete span {
+button.delete span, button.add span {
     font-size: 1.5rem;
     position: absolute;
     transform: translate(50%, -50%);
 }
 
-.line:hover button.delete {
+.object button.delete span {
+    transform: translate(150%, -50%);
+}
+
+.line:hover button.delete, .line:hover button.add {
     display: block;
 }
 
@@ -97,6 +101,10 @@ button span:hover {
     left: 100%;
 }
 
+.object .line-hoverer {
+    width: 60px;
+}
+
 .line:hover {
     border-color: rgba(0, 0, 0, .55);
 }
@@ -121,7 +129,7 @@ button span:hover {
     display: flex;
 }
 
-.opened>.line button:not(.delete) span {
+.opened>.line button:not(.delete):not(.add) span {
     transform: translate(-1.5rem, -100%) rotateZ(90deg);
 }
 

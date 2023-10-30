@@ -50,6 +50,7 @@ function fillData(JSONData) {
           }
           HTMLElements += `<div class="object ${openedObjectsId.includes(objectId) ? "opened" : "closed"}" id="object-${objectId}"><div class="line"><button onclick="openCloseObject('object-${objectId}')"><span class="material-symbols-outlined">arrow_right</span></button><a href="#">${currentPropOrValue}</a>`;
           HTMLElements += `<span class="line-hoverer"></span>`;
+          HTMLElements += `<button class="add"><span class="material-symbols-outlined">add</span></button>`;
           HTMLElements += `<button onclick="document.dispatchEvent(new CustomEvent('delete-object', {detail: {path: '${pathToProp}'}}))" class="delete"><span class="material-symbols-outlined">delete</span></button></div>`;
           objectId++;
         }
