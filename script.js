@@ -1,5 +1,5 @@
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-import {getDatabase, onValue, ref, update} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import {getDatabase, onValue, ref, update, set} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
 
 let database;
 
@@ -43,8 +43,14 @@ function fillData(JSONData) {
       if (currentPropOrValue !== "") {
         if (JSONData[i + 2] === "{") {
           // is an object
-          HTMLElements += `<div class="object ${openedObjectsId.includes(objectId) ? "opened" : "closed"}" id="object-${objectId}"><div class="line"><button onclick="openCloseObject('object-${objectId}')"><span class="material-symbols-outlined">arrow_right</span></button><a href="#">${currentPropOrValue}</a></div>`;
           insideObject.push(currentPropOrValue);
+          let pathToProp = "";
+          for (let step of insideObject) {
+            pathToProp += (pathToProp === "" ? "" : "/") + step;
+          }
+          HTMLElements += `<div class="object ${openedObjectsId.includes(objectId) ? "opened" : "closed"}" id="object-${objectId}"><div class="line"><button onclick="openCloseObject('object-${objectId}')"><span class="material-symbols-outlined">arrow_right</span></button><a href="#">${currentPropOrValue}</a>`;
+          HTMLElements += `<span class="line-hoverer"></span>`;
+          HTMLElements += `<button onclick="document.dispatchEvent(new CustomEvent('delete-object', {detail: {path: '${pathToProp}'}}))" class="delete"><span class="material-symbols-outlined">delete</span></button></div>`;
           objectId++;
         }
         else if (JSONData[i + 1] === ":") {
@@ -97,4 +103,8 @@ document.addEventListener('delete-prop', (e) => {
   update(ref(database, e.detail.path), {
     [e.detail.prop]: null
   });
+});
+
+document.addEventListener('delete-object', (e) => {
+  set(ref(database, e.detail.path), {});
 });

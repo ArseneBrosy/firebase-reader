@@ -121,7 +121,7 @@ button span:hover {
     display: flex;
 }
 
-.opened>.line button span {
+.opened>.line button:not(.delete) span {
     transform: translate(-1.5rem, -100%) rotateZ(90deg);
 }
 
